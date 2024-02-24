@@ -8,6 +8,7 @@ import Loader from "../components/Loader/Loader";
 const ListMovie = lazy(() => import("../pages/ListMovie/ListMovie"))
 const Home = lazy(() => import("../pages/Home/Home"))
 const Detail = lazy(() => import("../pages/Detail/Detail"))
+const DetailPlayer = lazy(() => import("../pages/Detail/DetailPlayer"))
 const Search = lazy(() => import("../pages/Search/Search"))
 const Favorite = lazy(() => import("../pages/Favorite/Favorite"))
 const Profile = lazy(() => import("../pages/Profile/Profile"))
@@ -35,8 +36,16 @@ const routeObj: RouteObject[] = [
         element: <Suspense fallback={<Loader />}><Detail mediaType="movie" /></Suspense>
       },
       {
+        path: "/movies/:name/:id/watch",
+        element: <Suspense fallback={<Loader />}><DetailPlayer mediaType="movie" /></Suspense>
+      },
+      {
         path: "/tv-series/:name/:id",
         element: <Suspense fallback={<Loader />}> <Detail mediaType="tv" /></Suspense>
+      },
+      {
+        path: "/tv-series/:name/:id/:season/:episode/watch-tv",
+        element: <Suspense fallback={<Loader />}> <DetailPlayer mediaType="tv" /></Suspense>
       },
       {
         path: "/movies",

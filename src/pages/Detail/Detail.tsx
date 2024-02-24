@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Wrapper from '../../components/Wrapper/Wrapper'
-import { BsClockHistory } from 'react-icons/bs'
+import { BsClockHistory, BsFillPlayFill } from 'react-icons/bs'
 import { AiFillStar } from 'react-icons/ai'
 import { SlArrowRight } from 'react-icons/sl'
 import tmdbApi, { TmdbMediaType } from '../../services/tmdbApi'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { DetailMovie, DetailTV, Movie, TV, TrendingVideo } from '../../Types/Movie'
 import { originalImage } from '../../services/apiConfigs'
 import { Cast, Crew } from '../../Types/Cast'
@@ -24,7 +24,7 @@ import { useForm } from '../../context/form/form.context'
 import { useRotatingLoader } from '../../context/RotatingLoader/RotatingLoader.context'
 import FBComment from '../../components/FBComment/FBComment'
 import { useVideoModal } from '../../context/VideoModal/VideoModal.context'
-import { siteMap } from '../../Types/common'
+import { siteMap, urlMap } from '../../Types/common'
 
 type Props = {
     mediaType: TmdbMediaType
@@ -167,14 +167,45 @@ const Detail = ({ mediaType, auth }: Props & { auth: AuthState | null }) => {
                             </div>
 
                             <div className='mt-4'>
-                                <button className='flex items-center gap-1 rounded-3xl bg-white/10
+                                {/* <button className='flex items-center gap-1 rounded-3xl bg-white/10
                                 px-4 py-2 transition-all duration-200 ease-in-out hover:bg-white/20' onClick={handleToggleFavorite}>
                                     {
                                         checkAddedToFavorite.data?.data.added ? <MdOutlineFavorite size={26} /> : <MdOutlineFavoriteBorder size={26} />
                                     }
                                     <span className='text-sm'>Add to favorites</span>
-                                </button>
+                                </button> */}
+                
+
+                            {mediaType === "movie" && <div className="buttons mt-8 flex gap-6">
+                                <Link to={`${urlMap[mediaType]}/${encodeURIComponent(((data.data as DetailMovie).title || (data.data as DetailTV).name).toLowerCase()).replace(/%20/g, '-') || "na"}/${(data.data as DetailMovie).id}/watch`}className="flex items-center gap-1 rounded-3xl bg-white/10
+                                px-4 py-2 transition-all duration-200 ease-in-out hover:bg-white/20">
+                                    <BsFillPlayFill size={20} /> Watch now
+                                </Link>
+                            </div>} 
+
+
+                                 
                             </div>
+
+                           {mediaType === "tv" && 
+                            <div className='mt-4'>
+                                <ul>
+                                {(data.data as DetailTV).seasons.map((item, index) => (
+                                    <li key={index}>
+                                        <div className='mt-6 text-white text-xs lg:w-[80%]'>{item.name}</div>
+                                        <div className='flex items-center gap-4 flex-wrap mt-2'>
+                                        {Array.from(Array(item.episode_count), (_, index) => (
+                                                <Link to={`${urlMap[mediaType]}/${encodeURIComponent(((data.data as DetailTV).name).toLowerCase()).replace(/%20/g, '-') || "na"}/${(data.data as DetailTV).id}/${item.season_number}/${index + 1}/watch-tv/`}>
+                                                    <span key={index} className='genre-items text-sm border border-white rounded-3xl py-1 px-2'>Episode {index + 1}</span>
+                                                </Link>
+                                            ))}
+                                    </div>
+ 
+                                    </li>
+                                ))}
+                                </ul>
+                            </div>
+                            }
                         </div>
                     </Wrapper>
                 </div>
