@@ -128,13 +128,12 @@ const DetailPlayer = ({ mediaType, auth }: Props & { auth: AuthState | null }) =
     return (
         <div className='detail-page' >
             {
-                data && <div className="detail" style={{ backgroundImage: `url(${originalImage(data.data.backdrop_path)})` }}>
-                    <Wrapper className='relative z-[1] flex flex-col md:flex-row gap-8 md:gap-16 py-5'>
-                        {/* <div className="detail-card overflow-hidden self-center rounded-2xl w-60">
-                            <LazyLoadImage src={originalImage(data.data.poster_path)} loading='lazy' alt={(data.data as DetailMovie).title || (data.data as DetailTV).name || ''} />
-                        </div> */}
-                        {mediaType === "movie" && <iframe src={"https://vidsrc.to/embed/movie/" + (data.data as DetailMovie).id} width="100%" height="800"></iframe> }
-                        {mediaType === "tv" && <iframe src={"https://vidsrc.to/embed/tv/" + (data.data as DetailTV).id + "/" + season + "/" + episode} width="100%" height="800"></iframe> }
+                data && <div className="detail h-96 lg:h-screen">
+                    <Wrapper className='relative z-[1] flex flex-col md:flex-row gap-8 md:gap-16 py-5 h-full'>
+                        {mediaType === "movie" && 
+                        <iframe src={"https://vidsrc.to/embed/movie/" + (data.data as DetailMovie).id} width="100%" height="100%" allowFullScreen></iframe> }
+                        
+                        {mediaType === "tv" && <iframe src={"https://vidsrc.to/embed/tv/" + (data.data as DetailTV).id + "/" + season + "/" + episode} width="100%"         height="100%"></iframe> }
                     </Wrapper>
                 </div>
 

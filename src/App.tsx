@@ -23,11 +23,11 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
+    <div className="App h-full w-full bg-black-2">
       <ContextProvider>
         <NavBar />
         <Outlet />
-        <Footer />
+        {/* <Footer /> */}
         <Form />
         <Backdrop />
         <RotatingLoader />

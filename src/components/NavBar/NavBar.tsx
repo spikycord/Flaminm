@@ -50,13 +50,13 @@ const NavBar = ({ auth }: Props) => {
                 <Link to='/search' className="search-box group ml-auto w-9 h-9 rounded-full flex justify-center items-center transition duration-300 ease-in-out hover:bg-white bg-white/10">
                     <AiOutlineSearch size={20} className='text-white/50 group-hover:text-gray-500' />
                 </Link>
-                {
+                {/* {
                     !auth?.isLogged ? (
                         <SignInButton className='text-sm h-9 w-9 md:w-auto px-2 ml-2' textClass='hidden md:inline-block' />
                     ) : (
                         <UserDropdown avatar_url={auth.authProfile?.avatar_url || ''} user_name={auth.authProfile ? `${auth.authProfile.first_name} ${auth.authProfile.last_name}` : ''} />
                     )
-                }
+                } */}
 
             </Wrapper>
         </header>

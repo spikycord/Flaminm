@@ -5,6 +5,12 @@
 
 
 @layer{
+    html, body, div#root {
+        height: 100%;
+    }
+}
+
+@layer{
     body{
         @apply font-poppins;
     }
